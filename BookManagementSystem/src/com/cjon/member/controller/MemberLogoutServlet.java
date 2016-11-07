@@ -29,9 +29,7 @@ public class MemberLogoutServlet extends HttpServlet {
 		
 		session.removeAttribute("ID");
 		
-		System.out.println("========================================");
-		System.out.println("No  SessionID  UserID");
-		System.out.println("========================================");
+
 		
 		String user_id = (String) session.getAttribute("ID");
 		System.out.print(" " + id);

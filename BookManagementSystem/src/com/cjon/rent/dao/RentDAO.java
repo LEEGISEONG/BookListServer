@@ -13,10 +13,7 @@ public class RentDAO {
 
 	public String select(String keyword) {
 		// Database처리가 나와요!
-		// 일반적으로 Database처리를 쉽게 하기 위해서
-		// Tomcat같은 경우는 DBCP라는걸 제공해 줘요!
-		// 추가적으로 간단한 라이브러리를 이용해서 DB처리를 해 볼꺼예요!!
-		// 1. Driver Loading ( 설정에 있네.. )
+		// 1. Driver Loading 
 		// 2. Connection 생성
 		Connection con = DBTemplate.getConnection();
 		PreparedStatement pstmt = null;
@@ -24,7 +21,7 @@ public class RentDAO {
 		String result = null;
 		try {
 			
-			String sql = "select bisbn, bimgurl, btitle, bauthor, brent "
+			String sql = "select bisbn, bimgbase64, btitle, bauthor, brent "
 					   + "from book where btitle like ?";
 			pstmt= con.prepareStatement(sql);
 			pstmt.setString(1, "%"+keyword+"%");
@@ -33,7 +30,7 @@ public class RentDAO {
 			while(rs.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isbn", rs.getString("bisbn"));
-				obj.put("img", rs.getString("bimgurl"));
+				obj.put("img", rs.getString("bimgbase64"));
 				obj.put("title", rs.getString("btitle"));
 				obj.put("author", rs.getString("bauthor"));
 				obj.put("rent", rs.getString("brent"));
@@ -192,19 +189,3 @@ public class RentDAO {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

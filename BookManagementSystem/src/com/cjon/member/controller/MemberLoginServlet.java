@@ -44,9 +44,6 @@ public class MemberLoginServlet extends HttpServlet {
 		
 		int i = 0;
 		
-		System.out.println("========================================");
-		System.out.println("No  SessionID  UserID");
-		System.out.println("========================================");
 		
 		String user_id = (String) session.getAttribute("ID");
 		System.out.print("(" + i + ")" + id);

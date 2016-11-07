@@ -22,7 +22,7 @@ public class BookDAO {
 		String result = null;
 		System.out.println(keyword);
 		try {
-			String sql = "select bisbn, bimgurl, btitle, bauthor, bprice " + "from book where btitle like ? limit " + start + ", 10";
+			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice " + "from book where btitle like ? limit " + start + ", 10";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
@@ -31,7 +31,7 @@ public class BookDAO {
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isbn", rs.getString("bisbn"));
-				obj.put("img", rs.getString("bimgurl"));
+				obj.put("img", rs.getString("bimgbase64"));
 				obj.put("title", rs.getString("btitle"));
 				obj.put("author", rs.getString("bauthor"));
 				obj.put("price", rs.getString("bprice"));

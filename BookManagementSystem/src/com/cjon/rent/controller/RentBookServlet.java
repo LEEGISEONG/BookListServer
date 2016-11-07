@@ -11,24 +11,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cjon.rent.service.RentService;
 
-/**
- * Servlet implementation class RentBookServlet
- */
+
 @WebServlet("/rentBook")
 public class RentBookServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public RentBookServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. 입력받고
 		String id = request.getParameter("id"); // 책에 대한 keyword를 받는부분
@@ -48,14 +40,6 @@ public class RentBookServlet extends HttpServlet {
 		out.flush();
 		out.close();
 	
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }
