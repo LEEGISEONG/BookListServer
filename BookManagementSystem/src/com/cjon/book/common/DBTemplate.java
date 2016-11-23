@@ -10,96 +10,96 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class DBTemplate {
-    
-    static int count;
 
-    public DBTemplate() {
-    }
+	static int count;
 
-    public static Connection getConnection() {
-        Connection conn = null;
-        try {
-            
-            Context initContext = new InitialContext();
-            DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/mySQLDB");
-            conn = ds.getConnection();
-            conn.setAutoCommit(false);
-            
-        } catch (Exception e) {
-            System.out.println("[JdbcTemplate.getConnection] : " + e.getMessage());
-            e.printStackTrace();
-        }
-        return conn;
-    }
+	public DBTemplate() {
+	}
 
-    public static boolean isConnected(Connection conn) {
+	public static Connection getConnection() {
+		Connection conn = null;
+		try {
 
-        boolean validConnection = true;
+			Context initContext = new InitialContext();
+			DataSource ds = (DataSource) initContext.lookup("java:comp/env/jdbc/mySQLDB");
+			conn = ds.getConnection();
+			conn.setAutoCommit(false);
 
-        try {
-            if (conn == null || conn.isClosed())
-                validConnection = false;
-        } catch (SQLException e) {
-            validConnection = false;
-            e.printStackTrace();
-        }
-        return validConnection;
-    }
+		} catch (Exception e) {
+			System.out.println("[JdbcTemplate.getConnection] : " + e.getMessage());
+			e.printStackTrace();
+		}
+		return conn;
+	}
 
-    public static void close(Connection conn) {
+	public static boolean isConnected(Connection conn) {
 
-        if (isConnected(conn)) {
-            try {
-                conn.close();
+		boolean validConnection = true;
 
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+		try {
+			if (conn == null || conn.isClosed())
+				validConnection = false;
+		} catch (SQLException e) {
+			validConnection = false;
+			e.printStackTrace();
+		}
+		return validConnection;
+	}
 
-    public static void close(Statement stmt) {
+	public static void close(Connection conn) {
 
-        try {
-            if (stmt != null) {
-                stmt.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+		if (isConnected(conn)) {
+			try {
+				conn.close();
 
-    public static void close(ResultSet rset) {
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
-        try {
-            if (rset != null)
-                rset.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public static void close(Statement stmt) {
 
-    public static void commit(Connection conn) {
+		try {
+			if (stmt != null) {
+				stmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        try {
-            if (isConnected(conn)) {
-                conn.commit();
-                System.out.println("[JdbcTemplate.commit] : DB Successfully Committed!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public static void close(ResultSet rset) {
 
-    public static void rollback(Connection conn) {
+		try {
+			if (rset != null)
+				rset.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 
-        try {
-            if (isConnected(conn)) {
-                conn.rollback();
-                System.out.println("[JdbcTemplate.rollback] : DB Successfully Rollbacked!");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	public static void commit(Connection conn) {
+
+		try {
+			if (isConnected(conn)) {
+				conn.commit();
+				System.out.println("[JdbcTemplate.commit] : DB Successfully Committed!");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void rollback(Connection conn) {
+
+		try {
+			if (isConnected(conn)) {
+				conn.rollback();
+				System.out.println("[JdbcTemplate.rollback] : DB Successfully Rollbacked!");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

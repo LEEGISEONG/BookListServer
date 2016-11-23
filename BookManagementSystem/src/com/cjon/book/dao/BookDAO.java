@@ -21,14 +21,16 @@ public class BookDAO {
 		ResultSet rs = null;
 		String result = null;
 		System.out.println(keyword);
-		
+
 		try {
-			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice from book where btitle like ?";
+			String sql = "select bisbn, bimgbase64, btitle, bauthor, bprice from book where btitle like ?";// 리스트
+																											// 출력
+																											// 쿼리문
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
 			JSONArray arr = new JSONArray();
-			int i=0;
+			int i = 0;
 			while (rs.next()) {
 				JSONObject obj = new JSONObject();
 				obj.put("isbn", rs.getString("bisbn"));
@@ -38,7 +40,7 @@ public class BookDAO {
 				obj.put("price", rs.getString("bprice"));
 				arr.add(obj);
 			}
-			
+
 			System.out.println(" 리스트 출력 완료!!---------------------------------------------------");
 
 			result = arr.toJSONString();
@@ -51,7 +53,7 @@ public class BookDAO {
 		}
 		return result;
 	}
-	
+
 	public boolean delete(String isbn) {
 		Connection con = DBTemplate.getConnection();
 		PreparedStatement pstmt = null;
@@ -60,12 +62,12 @@ public class BookDAO {
 		try {
 			System.out.println("Delete ");
 			System.out.println(isbn);
-			String sql = "delete from book where bisbn=?";
+			String sql = "delete from book where bisbn=?";// 삭제 처리 쿼리문
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, isbn);
-			
+
 			System.out.println("삭제되었습니닷.---------------------------------------------------");
-			
+
 			int count = pstmt.executeUpdate();
 			// 결과값은 영향을 받은 레코드의 수
 			if (count == 1) {
@@ -84,6 +86,5 @@ public class BookDAO {
 		}
 		return result;
 	}
-	
 
 }

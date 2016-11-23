@@ -21,14 +21,14 @@ public class BookListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 1. 입력받고
+		// 1. 입력받는 부분
 		String keyword = request.getParameter("keyword");
 		String start = request.getParameter("start");// 책에 대한 keyword를 받는부분
 		String callback = request.getParameter("callback"); // JSONP처리를 위해서 사용
-		// 2. 로직처리	
+		// 2. 로직처리	부분
 		BookService service = new BookService();		
 		String result = service.getList(keyword, start);
-		// 3. 출력처리
+		// 3. 출력처리 부분
 		response.setContentType("text/plain; charset=utf8");
 		PrintWriter out = response.getWriter();
 		out.println(callback + "(" + result + ")");
